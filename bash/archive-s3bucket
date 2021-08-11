@@ -2,6 +2,14 @@
 #
 # Usage: "./archive-s3bucket <bucket name>"
 
+if [ -z $1 ]
+then
+    echo "Missing bucket name"
+    echo 'Usage: "./archive-s3bucket <bucket name>"'
+    exit
+fi
+
+
 # check deps (s3cmd)
 s3cmdPath=$(which s3cmd)
 if [ $s3cmdPath != "/usr/bin/s3cmd" ] 
