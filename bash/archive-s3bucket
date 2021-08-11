@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# Usage: "./archive-s3bucket <bucket name>"
+
+echo "Target bucket: s3://${1}"
+
+# Setup Vars
+BucketURI="s3://${1}"
+BucketName="${1}"
+
+# create exit / move on function
+function _continue {
+    while true
+    do
+        read -r -p "$1" con
+        case "$con" in
+          n|N) exit;;
+          y|Y) break;;
+          *) echo 'Response not valid';;
+        esac
+    done
+}
+
+# print out rough size of bucket
+s3cmd du -H ${BucketURI} | awk '{print "Size of bucket: " $1 "\nRetrieveing " $2 " objects from "$4}'
+_continue "Archive this bucket? [y/n]"
+
+
+# display commands to be ran
+echo "The following commands will be executed:"
+echo ""
+echo "mkdir ${BucketName}"
+echo "s3cmd sync ${BucketURI} ./${BucketName}"
+echo "tar -czf ${BucketName}.tar.gz ./${BucketName}"
+echo "rm -r ./${BucketName}"
+echo ""
+_continue "Continue? [y/n]"
+
+
+# execute
+mkdir ${BucketName}
+s3cmd sync ${BucketURI} ./${BucketName}
+tar -czf ${BucketName}.tar.gz ./${BucketName}
+rm -r ./${BucketName}
+
+echo ""
+echo "Archive done."
+echo ""
+
+# remove bucket options
+while true
+do
+    read -r -p 'Remove the bucket [y/n] "'${BucketURI}'"? ' choice
+    case "$choice" in
+      n|N) exit;;
+      y|Y) 
+        s3cmd rm -r --force ${BucketURI}
+        s3cmd rb ${BucketURI}
+        break
+        ;;
+      *) echo 'Response not valid';;
+    esac
+done
+
+echo ""
+echo "Complete."
