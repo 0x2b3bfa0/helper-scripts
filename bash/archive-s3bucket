@@ -2,6 +2,17 @@
 #
 # Usage: "./archive-s3bucket <bucket name>"
 
+# check deps (s3cmd)
+s3cmdPath=$(which s3cmd)
+if [ $s3cmdPath != "/usr/bin/s3cmd" ] 
+then
+    echo "Missing s3cmd"
+    echo "apt-get install s3cmd"
+    echo "Exiting."
+    exit
+fi
+
+
 echo "Target bucket: s3://${1}"
 
 # Setup Vars
