@@ -49,8 +49,8 @@ _continue "Archive this bucket? [y/n]"
 echo "The following commands will be executed:"
 echo ""
 echo "mkdir ${BucketName}"
-echo "s3cmd sync ${BucketURI} ./${BucketName}"
-echo "tar -czf ${BucketName}.tar.gz ./${BucketName}"
+echo "s3cmd sync --no-progress --stats ${BucketURI} ./${BucketName}"
+echo "tar -czf --checkpoint ${BucketName}.tar.gz ./${BucketName}"
 echo "rm -r ./${BucketName}"
 echo ""
 _continue "Continue? [y/n]"
@@ -58,8 +58,8 @@ _continue "Continue? [y/n]"
 
 # execute
 mkdir ${BucketName}
-s3cmd sync ${BucketURI} ./${BucketName}
-tar -czf ${BucketName}.tar.gz ./${BucketName}
+s3cmd sync --no-progress --stats ${BucketURI} ./${BucketName}
+tar -czf --checkpoint ${BucketName}.tar.gz ./${BucketName}
 rm -r ./${BucketName}
 
 echo ""
