@@ -1,0 +1,21 @@
+# code base linter for all major languages
+# ref: https://github.com/github/super-linter#slim-image
+#
+
+name: Lint Code Base
+on: push
+
+jobs:
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: docker://ghcr.io/github/super-linter:slim-v4 # github/super-linter@v4
+        env: # https://github.com/github/super-linter#environment-variables
+            VALIDATE_ALL_CODEBASE: true # set to false to check only changed files
+            DEFAULT_BRANCH: main
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
