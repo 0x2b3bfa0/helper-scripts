@@ -57,7 +57,7 @@ _continue "Continue? [y/n]"
 
 
 # execute
-mkdir ${BucketName}
+mkdir "${BucketName}"
 s3cmd sync --no-progress --stats "${BucketURI}" ./"${BucketName}"
 tar -czf --checkpoint "${BucketName}".tar.gz ./"${BucketName}"
 rm -r ./"${BucketName}"
