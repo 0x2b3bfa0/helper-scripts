@@ -2,7 +2,7 @@
 #
 # Usage: "./archive-s3bucket <bucket name>"
 
-if [ -z $1 ]
+if [ -z "$1" ]
 then
     echo "Missing bucket name"
     echo 'Usage: "./archive-s3bucket <bucket name>"'
@@ -12,7 +12,7 @@ fi
 
 # check deps (s3cmd)
 s3cmdPath=$(which s3cmd)
-if [ $s3cmdPath != "/usr/bin/s3cmd" ] 
+if [ "$s3cmdPath" != "/usr/bin/s3cmd" ] 
 then
     echo "Missing s3cmd"
     echo "apt-get install s3cmd"
@@ -41,7 +41,7 @@ function _continue {
 }
 
 # print out rough size of bucket
-s3cmd du -H ${BucketURI} | awk '{print "Size of bucket: " $1 "\nRetrieveing " $2 " objects from "$4}'
+s3cmd du -H "${BucketURI}" | awk '{print "Size of bucket: " $1 "\nRetrieveing " $2 " objects from "$4}'
 _continue "Archive this bucket? [y/n]"
 
 
@@ -58,9 +58,9 @@ _continue "Continue? [y/n]"
 
 # execute
 mkdir ${BucketName}
-s3cmd sync --no-progress --stats ${BucketURI} ./${BucketName}
-tar -czf --checkpoint ${BucketName}.tar.gz ./${BucketName}
-rm -r ./${BucketName}
+s3cmd sync --no-progress --stats "${BucketURI}" ./"${BucketName}"
+tar -czf --checkpoint "${BucketName}".tar.gz ./"${BucketName}"
+rm -r ./"${BucketName}"
 
 echo ""
 echo "Archive done."
@@ -69,12 +69,12 @@ echo ""
 # remove bucket options
 while true
 do
-    read -r -p 'Remove the bucket [y/n] "'${BucketURI}'"? ' choice
+    read -r -p 'Remove the bucket [y/n] "'"${BucketURI}"'"? ' choice
     case "$choice" in
       n|N) exit;;
       y|Y) 
-        s3cmd rm -r --force ${BucketURI}
-        s3cmd rb ${BucketURI}
+        s3cmd rm -r --force "${BucketURI}"
+        s3cmd rb "${BucketURI}"
         break
         ;;
       *) echo 'Response not valid';;
