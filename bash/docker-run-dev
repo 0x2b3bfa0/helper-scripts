@@ -3,9 +3,17 @@
 # helper script for local development testing against a docker container
 
 DOCKERFILE_WORKDIR="/opt/app"
-CONTAINER="<long_registy_url>/<image_name>:<long_tag_name>"
+CONTAINER="node:latest"
+RUNASUSER=`id -u`
+
+if [ "$CONTAINER" == "<long_registy_url>/<image_name>:<long_tag_name>" ]; then
+    echo "Set the CONTAINER variable in this script to you container"
+    exit
+fi
+
 
 docker run --rm -it --entrypoint="" \
+    --user "$RUNASUSER":"$RUNASUSER" \
     -e AWS_SECRET_ACCESS_KEY \
     -e AWS_ACCESS_KEY_ID \
     -e AWS_SESSION_TOKEN \
