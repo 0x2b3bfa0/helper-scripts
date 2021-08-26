@@ -4,8 +4,8 @@
 
 DOCKERFILE_WORKDIR="/opt/app"
 CONTAINER="<reg>/<image>:<tag>"
-RUNASUSER=`id -u`
-RUNASGRP=`id -g`
+RUNASUSER=$(id -u)
+RUNASGRP=$(id -g)
 
 if [ "$CONTAINER" == "<reg>/<image>:<tag>" ]; then
     echo "Set the CONTAINER variable in this script to you container"
