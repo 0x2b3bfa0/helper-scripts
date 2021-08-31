@@ -1,0 +1,9 @@
+#!/bin/bash
+
+container_ids=$(docker ps -q --filter status=exited)
+
+for cid in $container_ids; do
+	echo "Deleteing $cid..."
+	docker rm $cid > /dev/null
+done
+echo "Done."
