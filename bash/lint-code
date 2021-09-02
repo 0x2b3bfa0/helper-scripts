@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+# pull latest
+docker pull github/super-linter:latest
+# lint code
+docker run --rm -e RUN_LOCAL=true -v "$PWD":/tmp/lint github/super-linter

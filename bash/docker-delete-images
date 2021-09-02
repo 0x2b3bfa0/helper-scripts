@@ -1,0 +1,9 @@
+#!/bin/bash
+
+IMAGE_IDS=$(docker images -q --filter dangling=true)
+
+for ImgID in $IMAGE_IDS; do
+	echo "Deleteing $ImgID..."
+	docker rmi "$ImgID" > /dev/null
+done
+echo "Done."
