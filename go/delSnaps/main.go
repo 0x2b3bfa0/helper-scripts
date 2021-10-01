@@ -26,6 +26,7 @@ func main() {
 
 	// Using the Config value, create the ec2 client
 	svc := ec2.NewFromConfig(cfg)
+	// test
 
 	// get snapshot by description value
 	snapsRes, err := svc.DescribeSnapshots(ctx, &ec2.DescribeSnapshotsInput{
