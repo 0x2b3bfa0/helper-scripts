@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -26,7 +27,6 @@ func main() {
 
 	// Using the Config value, create the ec2 client
 	svc := ec2.NewFromConfig(cfg)
-	// test
 
 	// get snapshot by description value
 	snapsRes, err := svc.DescribeSnapshots(ctx, &ec2.DescribeSnapshotsInput{
@@ -52,8 +52,11 @@ func main() {
 			DryRun:     aws.Bool(false),
 		})
 		if err != nil {
-			log.Fatalf("unable to delete snapshot: %s, Error: %v", *snapShot.SnapshotId, err)
+			//log.Fatalf("unable to delete snapshot: %s, Error: %v", *snapShot.SnapshotId, err)
+			fmt.Println("unable to delete snapshot:", *snapShot.SnapshotId, "Error:", err)
+		} else {
+			json, _ := json.Marshal(*delSnap)
+			fmt.Println("Return Metadata:", string(json))
 		}
-		fmt.Println("Return Metadata:", *delSnap)
 	}
 }
