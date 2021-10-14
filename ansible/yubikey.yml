@@ -9,7 +9,7 @@
     - name: Add yubico ppa
       ansible.builtin.apt_repository:
         repo: ppa:yubico/stable
-        state: present 
+        state: present
     - name: APT packages and tools
       apt:
         update_cache: true

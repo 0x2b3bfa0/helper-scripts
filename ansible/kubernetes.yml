@@ -8,7 +8,7 @@
         update_cache: true
         state: present
         pkg:
-          - gnupg 
+          - gnupg
           - apt-transport-https
           - ca-certificates
     - name: Add Google apt key
