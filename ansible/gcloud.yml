@@ -1,0 +1,28 @@
+---
+# https://cloud.google.com/sdk/docs/install
+- name: Install gcloud cli
+  hosts: localhost
+  become: true
+  tasks:
+    - name: gcloud APT deps
+      apt:
+        update_cache: true
+        state: present
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - gnupg
+    - name: Add google apt key
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        keyring: /usr/share/keyrings/cloud.google.gpg
+        state: present
+    - name: add apt repo
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+        state: present
+    - name: Install gcloud
+      apt:
+        update_cache: true
+        state: present
+        pkg: google-cloud-sdk

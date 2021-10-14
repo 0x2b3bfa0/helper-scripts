@@ -1,0 +1,24 @@
+---
+# https://developers.yubico.com/PGP/
+# https://wiki.archlinux.org/title/YubiKey
+# https://www.kernel.org/doc/html/latest/process/maintainer-pgp-guide.html
+- name: Install yubikey tools
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Add yubico ppa
+      ansible.builtin.apt_repository:
+        repo: ppa:yubico/stable
+        state: present 
+    - name: APT packages and tools
+      apt:
+        update_cache: true
+        state: present
+        pkg:
+          - gnupg
+          - libccid
+          - libpcsclite-dev
+          - pcscd
+          - scdaemon
+          - pcsc-tools
+          - yubikey-manager
