@@ -16,7 +16,7 @@
         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
         keyring: /usr/share/keyrings/k8s-apt-google.gpg
         state: present
-    - name: Add Terraform apt repository
+    - name: Add k8s apt repository
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/k8s-apt-google.gpg] https://apt.kubernetes.io/ {{ ansible_distribution_release }} main
         state: present
