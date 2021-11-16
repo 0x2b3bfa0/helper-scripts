@@ -1,0 +1,23 @@
+---
+# Install Terraform
+- name: Terraform deps
+  apt:
+    update_cache: true
+    state: present
+    pkg:
+      - gnupg
+      - software-properties-common
+- name: Add Terraform apt key
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /usr/share/keyrings/terraform.gpg
+    state: present
+- name: Add Terraform apt repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/terraform.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    state: present
+- name: Install Terraform
+  apt:
+    update_cache: true
+    state: present
+    pkg: terraform

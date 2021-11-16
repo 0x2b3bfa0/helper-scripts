@@ -1,0 +1,13 @@
+---
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html#cliv2-linux-install
+
+# Install the awscli
+- name: Download
+  ansible.builtin.unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/
+    remote_src: true
+- name: Install
+  become: true
+  command:
+    cmd: /tmp/aws/install
