@@ -11,3 +11,5 @@ jobs:
         uses: roles-ansible/check-ansible-ubuntu-focal-action@master
         with:
           targets: "ansible/roles/terraform"
+      - name: test?
+        run: terraform --version
