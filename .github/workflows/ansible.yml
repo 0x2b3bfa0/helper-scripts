@@ -12,4 +12,4 @@ jobs:
         with:
           targets: "ansible/roles/terraform"
       - name: test?
-        run: terraform --version
+        run: docker ps -a
