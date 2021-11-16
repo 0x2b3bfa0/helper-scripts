@@ -1,0 +1,21 @@
+---
+# https://golang.org/doc/install
+
+# Install golang
+- name: Remove old version
+  file:
+    path: /usr/local/go
+    state: absent
+- name: Download / Install
+  vars:
+    golang_version: 1.17.3
+  ansible.builtin.unarchive:
+    src: https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz
+    dest: /usr/local/
+    remote_src: true
+- name: Configure Path
+  lineinfile:
+    path: /etc/profile
+    state: present
+    regex: export PATH=\$PATH:/usr/local/go/bin
+    line: export PATH=$PATH:/usr/local/go/bin
