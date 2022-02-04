@@ -1,6 +1,12 @@
 ---
 name: Test ansible roles
-on: push
+on: 
+  push:
+    paths:
+      - "ansible/**"
+  schedule:
+    cron:
+      - "0 16 * * 1"
 
 jobs:
   test-role:
