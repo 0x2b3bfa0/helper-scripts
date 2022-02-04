@@ -21,4 +21,4 @@ jobs:
       - name: Ansible Check
         uses: roles-ansible/check-ansible-ubuntu-focal-action@master
         with:
-          targets: {{ matrix.roles }}
+          targets: ${{ matrix.roles }}
