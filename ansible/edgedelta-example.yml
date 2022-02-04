@@ -13,11 +13,9 @@
         cmd: "ED_API_KEY={{ ed_api_key }} /tmp/install.sh"
         creates: /etc/systemd/system/edgedelta.service
     - name: Updated journald conf for syslog forwarding
-      ansible.builtin.ini_file:
+      ansible.builtin.lineinfile:
         path: /etc/systemd/journald.conf
-        section: Journal
-        option: ForwardToSyslog
-        value: true
+        line: "ForwardToSyslog=True"
     - name: Restart journald for config change
       ansible.builtin.systemd:
         name: systemd-journald.service
