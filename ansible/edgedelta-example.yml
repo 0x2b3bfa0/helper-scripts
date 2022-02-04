@@ -4,31 +4,31 @@
   become: true
   tasks:
     - name: Get EdgeDelta Agent
-      get_url:
+      ansible.builtin.get_url:
         url: https://release.edgedelta.com/release/install.sh 
         dest: /tmp/install.sh
         mode: "0744"
     - name: Install EdgeDelta agent
-      shell:
+      ansible.builtin.shell:
         cmd: "ED_API_KEY={{ ed_api_key }} /tmp/install.sh"
         creates: /etc/systemd/system/edgedelta.service
     - name: Updated journald conf for syslog forwarding
-      ini_file:
+      ansible.builtin.ini_file:
         path: /etc/systemd/journald.conf
         section: Journal
         option: ForwardToSyslog
         value: true
     - name: Restart journald for config change
-      systemd:
+      ansible.builtin.systemd:
         name: systemd-journald.service
         state: restarted
     - name: Update rsyslog conf
-      lineinfile:
+      ansible.builtin.lineinfile:
         create: true
         path: /etc/rsyslog.d/60-edgedelta.conf
         line: "*.* @@127.0.0.1:514"
     - name: Restart rsyslog
-      systemd:
+      ansible.builtin.systemd:
         name: syslog.service
         state: restarted
         enabled: true
