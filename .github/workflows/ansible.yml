@@ -3,13 +3,22 @@ name: Test ansible roles
 on: push
 
 jobs:
-  terraform:
+  test-role:
+    strategy:
+      matrix:
+        roles:
+          - "ansible/roles/awscli"
+          - "ansible/roles/delta"
+          - "ansible/roles/docker"
+          - "ansible/roles/gcloud"
+          - "ansible/roles/golang"
+          - "ansible/roles/kubectl"
+          - "ansible/roles/terraform"
+          - "ansible/roles/yubikey"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Ansible Check
         uses: roles-ansible/check-ansible-ubuntu-focal-action@master
         with:
-          targets: "ansible/roles/terraform"
-      - name: test?
-        run: terraform -version
+          targets: {{ matrix.roles }}
