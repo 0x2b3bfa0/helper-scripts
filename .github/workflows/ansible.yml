@@ -1,6 +1,7 @@
 ---
 name: Test ansible roles
 on: 
+  workflow_dispatch:
   push:
     paths:
       - "ansible/**"
