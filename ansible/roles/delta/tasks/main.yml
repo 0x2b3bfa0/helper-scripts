@@ -1,8 +1,9 @@
 ---
-# Delta diff tool: https://github.com/dandavison/delta
+# A better diff tool
+# https://github.com/dandavison/delta
 - name: Install delta
   apt:
     state: present
-    deb: https://github.com/dandavison/delta/releases/download/0.9.2/git-delta_0.9.2_amd64.deb
+    deb: https://github.com/dandavison/delta/releases/download/0.10.3/git-delta_0.10.3_amd64.deb
 
-# check / setup .gitconfig?
+# update .gitconfig? 

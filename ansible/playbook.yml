@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: true
+  roles:
+    #- awscli
+    #- delta
+    #- docker
+    #- gcloud
+    #- golang
+    #- kubectl
+    #- terraform
+    #- yubikey
