@@ -1,6 +1,6 @@
 # code base linter for all major languages
 # ref: https://github.com/github/super-linter#slim-image
-#
+# 
 
 name: Lint Code Base
 on: push
